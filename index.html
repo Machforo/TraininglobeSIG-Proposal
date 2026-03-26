@@ -1,0 +1,3053 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDO AI Training Programme — Traininglobe × SIG Proposal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #0A2240;
+            --accent: #00B4D8;
+            --accent2: #0077A8;
+            --gold: #C9A84C;
+            --gold-light: #F0D080;
+            --white: #FFFFFF;
+            --off-white: #F5F7FA;
+            --light-bg: #EEF4F8;
+            --text: #1A2B3C;
+            --text-muted: #5A6A7A;
+            --border: #D0DCE8;
+            --success: #1DB87A;
+            --highlight: #E8F6FB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+
+        /* ========== COVER PAGE ========== */
+        .cover {
+            min-height: 100vh;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0;
+        }
+
+        .cover-bg-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(0, 180, 216, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 10% 80%, rgba(201, 168, 76, 0.10) 0%, transparent 40%),
+                linear-gradient(135deg, rgba(0, 119, 168, 0.08) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .cover-geometric {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.12) 0%, rgba(0, 119, 168, 0.06) 100%);
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 0;
+        }
+
+        .cover-accent-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--accent) 50%, var(--gold) 100%);
+            z-index: 2;
+        }
+
+        .cover-top-bar {
+            width: 100%;
+            padding: 32px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-badge span {
+            color: var(--accent);
+        }
+
+        .logo-divider {
+            width: 1px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cover-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 60px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(201, 168, 76, 0.15);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 50px;
+            padding: 6px 18px;
+            margin-bottom: 32px;
+            width: fit-content;
+        }
+
+        .cover-eyebrow span {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        .cover-eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 62px;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.05;
+            max-width: 700px;
+            margin-bottom: 16px;
+        }
+
+        .cover-title .highlight-blue {
+            color: var(--accent);
+        }
+
+        .cover-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.65);
+            max-width: 560px;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        .cover-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 56px;
+        }
+
+        .cover-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .cover-pill-icon {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .cover-stats-row {
+            display: flex;
+            gap: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cover-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cover-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .cover-stat-value span {
+            color: var(--gold);
+        }
+
+        .cover-stat-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .cover-footer {
+            padding: 24px 60px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cover-footer-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cover-footer-badge {
+            background: linear-gradient(135deg, var(--gold) 0%, #E8C060 100%);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 4px;
+        }
+
+        /* ========== PAGE WRAPPER ========== */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 60px;
+        }
+
+        /* ========== SECTION HEADERS ========== */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .section-label-num {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'DM Mono', monospace;
+        }
+
+        .section-label-text {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .section-intro {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin-bottom: 48px;
+            line-height: 1.65;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 60px 0;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 80px 0 60px;
+        }
+
+        .section-divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-divider-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* ========== EXECUTIVE SUMMARY ========== */
+        .exec-summary-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, #0D3060 100%);
+            border-radius: 20px;
+            padding: 52px 56px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 48px;
+        }
+
+        .exec-summary-banner::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.2) 0%, transparent 70%);
+        }
+
+        .exec-summary-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+        }
+
+        .exec-banner-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .exec-banner-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .exec-banner-text p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.72);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .exec-banner-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .exec-tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 5px 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .exec-kpis {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .exec-kpi {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 16px 20px;
+        }
+
+        .exec-kpi-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .exec-kpi-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 500;
+        }
+
+        /* ========== USP CARDS ========== */
+        .usp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .usp-card {
+            border-radius: 16px;
+            padding: 28px 30px;
+            border: 1.5px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .usp-card.featured {
+            background: linear-gradient(135deg, var(--primary) 0%, #0D3060 100%);
+            border-color: transparent;
+            grid-column: span 2;
+        }
+
+        .usp-card:not(.featured) {
+            background: var(--white);
+        }
+
+        .usp-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .usp-card.featured .usp-card-icon {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .usp-card:not(.featured) .usp-card-icon {
+            background: var(--light-bg);
+        }
+
+        .usp-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .usp-card.featured h3 {
+            color: white;
+        }
+
+        .usp-card:not(.featured) h3 {
+            color: var(--primary);
+        }
+
+        .usp-card p {
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .usp-card.featured p {
+            color: rgba(255, 255, 255, 0.68);
+        }
+
+        .usp-card:not(.featured) p {
+            color: var(--text-muted);
+        }
+
+        .usp-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .usp-card.featured .usp-badge {
+            background: var(--gold);
+        }
+
+        /* Featured USP split */
+        .featured-usp-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .featured-usp-items {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
+            padding-left: 32px;
+        }
+
+        .featured-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .featured-item-dot {
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 180, 216, 0.25);
+            border: 1.5px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .featured-item-dot::after {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .featured-item-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        .featured-item-text strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ========== VALUE PROPOSITION BOXES ========== */
+        .value-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .value-card {
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .value-card-icon-wrap {
+            width: 52px;
+            height: 52px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 14px;
+        }
+
+        .value-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .value-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ========== PROGRAMME LEVELS ========== */
+        .level-block {
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 32px;
+            border: 1.5px solid var(--border);
+        }
+
+        .level-header {
+            padding: 32px 36px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .level-header.l2 {
+            background: linear-gradient(135deg, #E8F4FB 0%, #D0EAF6 100%);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .level-header.l3 {
+            background: linear-gradient(135deg, #FDF3E3 0%, #F5E4C0 100%);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .level-badge.l2 {
+            background: rgba(0, 180, 216, 0.12);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            color: var(--accent2);
+        }
+
+        .level-badge.l3 {
+            background: rgba(201, 168, 76, 0.12);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            color: #8B6914;
+        }
+
+        .level-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .level-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 480px;
+            line-height: 1.6;
+        }
+
+        .level-price-box {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .level-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .level-price-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .level-duration-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .level-duration-pill.l2 {
+            background: rgba(0, 180, 216, 0.1);
+            color: var(--accent2);
+        }
+
+        .level-duration-pill.l3 {
+            background: rgba(201, 168, 76, 0.12);
+            color: #8B6914;
+        }
+
+        .level-body {
+            padding: 32px 36px;
+            background: white;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--off-white);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .module-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'DM Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .module-num.l2 {
+            background: rgba(0, 180, 216, 0.12);
+            color: var(--accent2);
+        }
+
+        .module-num.l3 {
+            background: rgba(201, 168, 76, 0.15);
+            color: #8B6914;
+        }
+
+        .module-text strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+
+        .module-text span {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .outcomes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .outcome-chip {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .outcome-chip-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .outcome-chip-dot.l2 {
+            background: var(--accent);
+        }
+
+        .outcome-chip-dot.l3 {
+            background: var(--gold);
+        }
+
+        /* ========== UNIQUE VALUE TABLE ========== */
+        .unique-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid var(--border);
+            margin-bottom: 48px;
+        }
+
+        .unique-table thead tr {
+            background: var(--primary);
+        }
+
+        .unique-table thead th {
+            padding: 16px 22px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: left;
+        }
+
+        .unique-table thead th:first-child {
+            width: 36%;
+        }
+
+        .unique-table thead th.check-col {
+            width: 130px;
+            text-align: center;
+        }
+
+        .unique-table tbody tr:nth-child(even) {
+            background: var(--off-white);
+        }
+
+        .unique-table tbody tr:nth-child(odd) {
+            background: white;
+        }
+
+        .unique-table tbody td {
+            padding: 14px 22px;
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .unique-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .unique-table tbody td.check-col {
+            text-align: center;
+        }
+
+        .check-yes {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: rgba(29, 184, 122, 0.12);
+            border-radius: 50%;
+            color: var(--success);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .check-no {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: rgba(200, 50, 50, 0.08);
+            border-radius: 50%;
+            color: #C83232;
+            font-size: 14px;
+        }
+
+        .check-partial {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: rgba(201, 168, 76, 0.12);
+            border-radius: 50%;
+            color: var(--gold);
+            font-size: 14px;
+        }
+
+        /* ========== PRICING ========== */
+        .pricing-wrap {
+            background: var(--light-bg);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 48px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 36px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 28px;
+            border: 2px solid var(--border);
+            position: relative;
+            text-align: center;
+        }
+
+        .pricing-card.recommended {
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(10, 34, 64, 0.12);
+        }
+
+        .pricing-rec-badge {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 50px;
+        }
+
+        .pricing-card-level {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .pricing-card-price {
+            margin-bottom: 8px;
+        }
+
+        .price-currency {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-muted);
+            vertical-align: top;
+            margin-top: 6px;
+        }
+
+        .price-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .price-per {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .price-duration {
+            display: inline-block;
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .pricing-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 20px;
+        }
+
+        .pricing-features {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pricing-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pricing-feat-icon {
+            color: var(--success);
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .pricing-total-box {
+            background: var(--primary);
+            border-radius: 16px;
+            padding: 28px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+        .pricing-total-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.65);
+            font-weight: 500;
+        }
+
+        .pricing-total-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .pricing-total-value span {
+            color: var(--gold-light);
+        }
+
+        .pricing-total-details {
+            text-align: right;
+        }
+
+        .pricing-total-sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        /* ========== STRATEGIC ALIGNMENT ========== */
+        .alignment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .alignment-card {
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            background: white;
+        }
+
+        .alignment-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .alignment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .alignment-card-header h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .alignment-points {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .alignment-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .alignment-point::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        /* ========== DELIVERY TIMELINE ========== */
+        .timeline-wrap {
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 48px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-item:last-child .timeline-dot {
+            border-color: var(--gold);
+        }
+
+        .timeline-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+
+        .timeline-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .timeline-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .timeline-date-badge {
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .timeline-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .timeline-sub-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .timeline-chip {
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ========== CERTIFICATION ========== */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .cert-card {
+            border-radius: 16px;
+            padding: 28px 30px;
+            border: 1.5px solid var(--border);
+            background: white;
+            position: relative;
+        }
+
+        .cert-card.primary-cert {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #F0F5FF 0%, white 100%);
+        }
+
+        .cert-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .cert-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .cert-card.primary-cert .cert-icon {
+            background: rgba(10, 34, 64, 0.08);
+        }
+
+        .cert-card:not(.primary-cert) .cert-icon {
+            background: var(--light-bg);
+        }
+
+        .cert-header h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .cert-header span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .cert-body p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .cert-providers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .cert-provider-tag {
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ========== INCLUSIONS TABLE ========== */
+        .inclusions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .inclusion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .inclusion-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--highlight);
+            border: 1px solid rgba(0, 180, 216, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .inclusion-text strong {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .inclusion-text span {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* ========== TECHNOLOGY STACK ========== */
+        .tech-stack-wrap {
+            background: var(--primary);
+            border-radius: 20px;
+            padding: 40px 44px;
+            margin-bottom: 48px;
+        }
+
+        .tech-stack-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .tech-stack-sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 28px;
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .tech-cat {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .tech-cat-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 5px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-family: 'DM Mono', monospace;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        /* ========== FOOTER ========== */
+        .proposal-footer {
+            background: var(--primary);
+            padding: 52px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proposal-footer::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.12) 0%, transparent 70%);
+        }
+
+        .footer-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .footer-cta p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        .footer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gold) 0%, #E8C060 100%);
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-contact h3 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .footer-contact-items {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-contact-icon {
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .footer-contact-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-contact-text strong {
+            display: block;
+            color: white;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 32px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-bottom-badge {
+            background: linear-gradient(135deg, var(--gold) 0%, #E8C060 100%);
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 4px;
+        }
+
+        /* ========== FULL-WIDTH CALLOUT ========== */
+        .callout {
+            background: linear-gradient(135deg, var(--highlight) 0%, #D8EFF8 100%);
+            border: 1.5px solid rgba(0, 180, 216, 0.2);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .callout-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .callout-text h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .callout-text p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .callout-text p strong {
+            color: var(--primary);
+        }
+
+        /* ========== PARTICIPANTS OVERVIEW ========== */
+        .participants-overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .participant-block {
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .participant-block.l2-block {
+            background: linear-gradient(135deg, #E8F4FB 0%, #CCE8F5 100%);
+            border: 1.5px solid rgba(0, 180, 216, 0.25);
+        }
+
+        .participant-block.l3-block {
+            background: linear-gradient(135deg, #FDF3E3 0%, #F8E3B8 100%);
+            border: 1.5px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .participant-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .participant-block.l2-block .participant-num {
+            color: var(--accent2);
+        }
+
+        .participant-block.l3-block .participant-num {
+            color: #8B6914;
+        }
+
+        .participant-role {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .participant-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ========== PRINT STYLES ========== */
+        @media print {
+            .cover {
+                min-height: 100vh;
+                page-break-after: always;
+            }
+
+            .page {
+                page-break-inside: avoid;
+            }
+
+            .level-block {
+                page-break-inside: avoid;
+        }
+    }
+
+        /* ========== PASSWORD PROTECTION ========== */
+        #password-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #password-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(0, 180, 216, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 10% 80%, rgba(201, 168, 76, 0.10) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .password-box {
+            background: white;
+            padding: 48px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .password-logo {
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .password-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .password-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .password-input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .password-input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .password-input-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.1);
+        }
+
+        .password-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .password-btn:hover {
+            background: #0D3060;
+            transform: translateY(-2px);
+        }
+
+        #password-error {
+            color: #C83232;
+            font-size: 12px;
+            margin-top: 12px;
+            display: none;
+            font-weight: 600;
+        }
+
+        #main-content {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="password-overlay">
+        <div class="password-box">
+            <div class="password-logo">🔐</div>
+            <h2>Protected Document</h2>
+            <p>Please enter the password to access the PDO AI Capability Development Programme Proposal.</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Enter password" autofocus>
+                <div id="password-error">Incorrect password. Please try again.</div>
+            </div>
+            <button class="password-btn" onclick="checkPassword()">Access Proposal</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+
+    <!-- ============================================================ -->
+    <!-- COVER PAGE -->
+    <!-- ============================================================ -->
+    <div class="cover">
+        <div class="cover-bg-pattern"></div>
+        <div class="cover-geometric"></div>
+        <div class="cover-accent-bar"></div>
+
+        <div class="cover-top-bar">
+            <div class="logo-area">
+                <div class="logo-badge">🌐 <span>Traininglobe</span></div>
+                <div class="logo-divider"></div>
+                <div class="logo-badge">⚡ <span>SIG</span> Oman</div>
+            </div>
+            <div
+                style="font-size:12px; color:rgba(255,255,255,0.4); font-weight:500; letter-spacing:1px; text-transform:uppercase;">
+                Prepared for Petroleum Development Oman</div>
+        </div>
+
+        <div class="cover-main">
+            <div class="cover-eyebrow">
+                <div class="cover-eyebrow-dot"></div>
+                <span>Confidential Proposal · March 2026</span>
+            </div>
+
+            <h1 class="cover-title">
+                PDO <span class="highlight-blue">AI Capability</span><br>
+                Development<br>
+                Programme
+            </h1>
+
+            <p class="cover-subtitle">
+                A comprehensive, production-first AI training initiative for Levels 2 &amp; 3 — building Oman's most
+                capable energy-sector AI workforce.
+            </p>
+
+            <div class="cover-pills">
+                <div class="cover-pill">
+                    <div class="cover-pill-icon"></div> AI Practitioners (Level 2)
+                </div>
+                <div class="cover-pill">
+                    <div class="cover-pill-icon"></div> AI Specialists (Level 3)
+                </div>
+                <div class="cover-pill">
+                    <div class="cover-pill-icon"></div> Dual Certification
+                </div>
+                <div class="cover-pill">
+                    <div class="cover-pill-icon"></div> Live Projects Included
+                </div>
+                <div class="cover-pill">
+                    <div class="cover-pill-icon"></div> Free AI LMS Platform
+                </div>
+            </div>
+
+            <div class="cover-stats-row">
+                <div class="cover-stat">
+                    <div class="cover-stat-value">160<span>+</span></div>
+                    <div class="cover-stat-label">Participants</div>
+                </div>
+                <div class="cover-stat">
+                    <div class="cover-stat-value">6<span>wk</span></div>
+                    <div class="cover-stat-label">Total Duration</div>
+                </div>
+                <div class="cover-stat">
+                    <div class="cover-stat-value">2<span>×</span></div>
+                    <div class="cover-stat-label">Certifications</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <div class="cover-footer-text">Traininglobe × Smart Investment Gateway (SIG) Oman · www.traininglobe.com
+            </div>
+            <div class="cover-footer-badge">Strictly Confidential</div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1: EXECUTIVE SUMMARY -->
+    <!-- ============================================================ -->
+    <div class="page">
+
+        <div class="section-label">
+            <div class="section-label-num">01</div>
+            <div class="section-label-text">Executive Summary</div>
+        </div>
+        <h2 class="section-title">From Awareness to<br>Enterprise AI Leadership</h2>
+        <p class="section-intro">Traininglobe, in strategic partnership with Smart Investment Gateway Oman (SIG),
+            presents this transformational AI capability programme — purpose-built for PDO, grounded in Omani industry
+            context, and aligned with the nation's highest-priority development goals.</p>
+
+        <div class="exec-summary-banner">
+            <div class="exec-banner-inner">
+                <div class="exec-banner-text">
+                    <h2>A Strategic Transformation, Not Just Training</h2>
+                    <p>With Level 1 (AI Awareness) successfully completed, PDO stands at a pivotal inflection point.
+                        Levels 2 and 3 are designed to convert that foundational awareness into measurable operational
+                        capability — building AI practitioners who transform workflows and AI engineers who deploy
+                        production-grade systems at scale.</p>
+                    <p>This programme accelerates PDO's journey to becoming a nationally recognised leader in AI-driven
+                        energy operations, directly supporting Oman Vision 2040 and the 11th Five-Year Development Plan.
+                    </p>
+                    <div class="exec-banner-tags">
+                        <div class="exec-tag">🇴🇲 Oman Vision 2040 Aligned</div>
+                        <div class="exec-tag">🏭 O&G Context-Specific</div>
+                        <div class="exec-tag">⚙️ Adam GPT Integration</div>
+                        <div class="exec-tag">📊 Production-First Design</div>
+                        <div class="exec-tag">🎓 Dual Certification</div>
+                    </div>
+                </div>
+                <div class="exec-kpis">
+                    <div class="exec-kpi">
+                        <div class="exec-kpi-val">160</div>
+                        <div class="exec-kpi-label">Total Participants Trained</div>
+                    </div>
+                    <div class="exec-kpi">
+                        <div class="exec-kpi-val">OMR 0</div>
+                        <div class="exec-kpi-label">LMS + Live Project Cost</div>
+                    </div>
+                    <div class="exec-kpi">
+                        <div class="exec-kpi-val">2 Certs</div>
+                        <div class="exec-kpi-label">Per Participant</div>
+                    </div>
+                    <div class="exec-kpi">
+                        <div class="exec-kpi-val">6 Wks</div>
+                        <div class="exec-kpi-label">Full Programme Duration</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maturity Journey -->
+        <div class="callout">
+            <div class="callout-icon">🚀</div>
+            <div class="callout-text">
+                <h4>PDO's AI Maturity Journey</h4>
+                <p>Level 1 ✅ <strong>AI Awareness (Complete)</strong> → Level 2 🔄 <strong>AI Practitioners</strong> —
+                    workflow transformation → Level 3 🔄 <strong>AI Specialists</strong> — production engineering. This
+                    programme delivers the complete transition from <strong>Application through Engineering to AI
+                        Leadership</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Participants overview -->
+        <div class="participants-overview">
+            <div class="participant-block l2-block">
+                <div class="participant-num">100</div>
+                <div class="participant-role">AI Practitioners</div>
+                <div class="participant-desc">Level 2 — Analysts, Engineers &amp; Planners who design and operate
+                    AI-assisted workflows without requiring deep ML expertise</div>
+            </div>
+            <div class="participant-block l3-block">
+                <div class="participant-num">60</div>
+                <div class="participant-role">AI Specialists</div>
+                <div class="participant-desc">Level 3 — Data Scientists &amp; ML Engineers who build, deploy, monitor
+                    and govern production-grade AI systems</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2: OUR UNIQUE VALUE PROPOSITION -->
+    <!-- ============================================================ -->
+    <div style="background: var(--off-white); padding: 80px 0;">
+        <div class="page" style="padding-top: 0; padding-bottom: 0;">
+
+            <div class="section-label">
+                <div class="section-label-num">02</div>
+                <div class="section-label-text">What Sets Us Apart</div>
+            </div>
+            <h2 class="section-title">Exclusive Differentiators<br>Included at No Extra Cost</h2>
+            <p class="section-intro">Beyond world-class training, Traininglobe delivers four exclusive advantages that
+                no competitor offers — representing tens of thousands of OMR in added value, bundled into your
+                investment at zero additional cost.</p>
+
+            <div class="usp-grid">
+                <!-- Featured: LMS -->
+                <div class="usp-card featured">
+                    <div class="usp-badge">Exclusive — Free</div>
+                    <div class="featured-usp-inner">
+                        <div>
+                            <div class="usp-card-icon" style="font-size:28px;">🖥️</div>
+                            <h3>AI-Powered Learning Management System</h3>
+                            <p style="margin-bottom:16px;">A fully branded, enterprise-grade AI LMS — customised for PDO
+                                — provided at absolutely no cost. Participants access structured learning paths, video
+                                content, assessments, progress dashboards, and AI-driven personalised recommendations
+                                throughout and beyond the programme.</p>
+                            <p>The LMS includes pre-loaded PDO-specific use cases, scenario libraries, and a
+                                post-programme resource hub ensuring knowledge doesn't fade after class ends.</p>
+                        </div>
+                        <div class="featured-usp-items">
+                            <div class="featured-item">
+                                <div class="featured-item-dot"></div>
+                                <div class="featured-item-text"><strong>Branded PDO portal</strong> with custom domain
+                                    &amp; SSO-ready</div>
+                            </div>
+                            <div class="featured-item">
+                                <div class="featured-item-dot"></div>
+                                <div class="featured-item-text"><strong>AI-adaptive learning paths</strong> per
+                                    participant role</div>
+                            </div>
+                            <div class="featured-item">
+                                <div class="featured-item-dot"></div>
+                                <div class="featured-item-text"><strong>Progress analytics</strong> for HR &amp;
+                                    programme managers</div>
+                            </div>
+                            <div class="featured-item">
+                                <div class="featured-item-dot"></div>
+                                <div class="featured-item-text"><strong>Post-programme access</strong> retained for 12
+                                    months</div>
+                            </div>
+                            <div class="featured-item">
+                                <div class="featured-item-dot"></div>
+                                <div class="featured-item-text"><strong>Market value ≈ OMR 8,000–15,000</strong> —
+                                    included free</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Projects -->
+                <div class="usp-card">
+                    <div class="usp-badge">Free via IT Partnership</div>
+                    <div class="usp-card-icon">⚡</div>
+                    <h3>Live PDO Projects — Industry IT Partnership</h3>
+                    <p>Through our exclusive tie-up with a leading IT company, participants work on real, high-impact
+                        PDO AI initiatives — predictive maintenance, anomaly detection, knowledge retrieval — at zero
+                        additional cost. Every project delivers a working prototype, evaluation metrics, and a
+                        deployment-ready solution.</p>
+                </div>
+
+                <!-- Dual Certification -->
+                <div class="usp-card">
+                    <div class="usp-card-icon">🏅</div>
+                    <h3>Dual Certification Package</h3>
+                    <p>Every participant earns two recognised credentials: a globally recognised
+                        <strong>Industry-Standard Certificate</strong> (from Microsoft, Google, AWS, or NVIDIA) plus a
+                        <strong>Traininglobe Programme Certificate</strong> validating PDO-specific AI competency.
+                        Maximum professional value — one investment.</p>
+                </div>
+
+                <!-- Test Cases -->
+                <div class="usp-card">
+                    <div class="usp-card-icon">🧪</div>
+                    <h3>PDO-Specific Test Cases &amp; Resources</h3>
+                    <p>A proprietary library of <strong>PDO-contextualised test cases, evaluation datasets, prompt
+                            templates, and project blueprints</strong> — pre-built for O&amp;G scenarios including
+                        maintenance, HSE, procurement, and operations — becomes PDO's permanent internal AI resource
+                        after the programme ends.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3: PROGRAMME LEVELS -->
+    <!-- ============================================================ -->
+    <div class="page">
+
+        <div class="section-label">
+            <div class="section-label-num">03</div>
+            <div class="section-label-text">Programme Design</div>
+        </div>
+        <h2 class="section-title">Two Levels. One Unified<br>AI Transformation Journey.</h2>
+        <p class="section-intro">Each level is meticulously designed around PDO's operational reality — mapping every
+            module, lab, and project to real workflows in maintenance, HSE, procurement, operations, and reporting.</p>
+
+        <!-- LEVEL 2 -->
+        <div class="level-block">
+            <div class="level-header l2">
+                <div>
+                    <div class="level-badge l2">🔵 Level 2</div>
+                    <h3>AI Practitioners Programme</h3>
+                    <p>Transforming analysts, engineers, and planners into confident AI workflow designers — capable of
+                        building reliable, repeatable AI systems without deep ML expertise. The most critical bridge
+                        between AI awareness and enterprise adoption.</p>
+                </div>
+                <div class="level-price-box">
+                    <div class="level-price">800</div>
+                    <div class="level-price-sub">OMR per participant</div>
+                    <div class="level-duration-pill l2">⏱ 1 Week Intensive</div>
+                </div>
+            </div>
+            <div class="level-body">
+                <div
+                    style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px;">
+                    Core Curriculum Modules</div>
+                <div class="modules-grid">
+                    <div class="module-item">
+                        <div class="module-num l2">01</div>
+                        <div class="module-text">
+                            <strong>Practical AI Use Cases</strong>
+                            <span>Extraction, classification, summarisation, Q&A, reporting &amp; decision support
+                                patterns</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">02</div>
+                        <div class="module-text">
+                            <strong>Advanced Prompting for Consistency</strong>
+                            <span>Template prompts, few-shot techniques, output control &amp; quality loops</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">03</div>
+                        <div class="module-text">
+                            <strong>Structured Outputs Engineering</strong>
+                            <span>Tables, checklists, JSON schema, forms &amp; failure-proof output design</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">04</div>
+                        <div class="module-text">
+                            <strong>Knowledge-Based AI (RAG Basics)</strong>
+                            <span>Grounded retrieval, document hygiene, citation requirements &amp; hallucination
+                                reduction</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">05</div>
+                        <div class="module-text">
+                            <strong>Workflow Integration Design</strong>
+                            <span>Human-in-the-loop frameworks, approval steps, traceability &amp; logging</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">06</div>
+                        <div class="module-text">
+                            <strong>Testing, Evaluation &amp; Iteration</strong>
+                            <span>Test set construction, rubric-based evaluation, iteration cycles</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">07</div>
+                        <div class="module-text">
+                            <strong>Live Project Day (PDO Real Cases)</strong>
+                            <span>Work order triage, shift handover automation, procurement review, AI assistants</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l2">08</div>
+                        <div class="module-text">
+                            <strong>Responsible &amp; Secure AI Use</strong>
+                            <span>Data governance, confidentiality, bias mitigation &amp; compliance rules</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">
+                    Programme Outcomes</div>
+                <div class="outcomes-row">
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l2"></div>Design AI-assisted workflows
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l2"></div>Produce structured, consistent outputs
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l2"></div>Build document Q&A systems (RAG)
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l2"></div>Integrate review &amp; audit steps
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l2"></div>Measure AI output quality
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l2"></div>Apply safe &amp; responsible AI practices
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEVEL 3 -->
+        <div class="level-block">
+            <div class="level-header l3">
+                <div>
+                    <div class="level-badge l3">🟡 Level 3</div>
+                    <h3>AI Specialists Programme</h3>
+                    <p>Building PDO's elite AI engineering core — data scientists and ML engineers who can design,
+                        deploy, monitor, and govern production-grade AI systems end-to-end, from raw data pipelines to
+                        live enterprise deployments.</p>
+                </div>
+                <div class="level-price-box">
+                    <div class="level-price" style="color:#8B6914;">3000</div>
+                    <div class="level-price-sub">OMR per participant</div>
+                    <div class="level-duration-pill l3">⏱ 5 Weeks Intensive</div>
+                </div>
+            </div>
+            <div class="level-body">
+                <div
+                    style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px;">
+                    Core Curriculum Modules</div>
+                <div class="modules-grid">
+                    <div class="module-item">
+                        <div class="module-num l3">01</div>
+                        <div class="module-text">
+                            <strong>ML Foundations (Fast but Solid)</strong>
+                            <span>Problem framing, metric selection, data splitting, leakage risks &amp; model
+                                iteration</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">02</div>
+                        <div class="module-text">
+                            <strong>Data Engineering for AI</strong>
+                            <span>Pipelines, quality checks, labelling governance, reproducibility &amp; dataset
+                                versioning</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">03</div>
+                        <div class="module-text">
+                            <strong>LLM Engineering (Production-Grade)</strong>
+                            <span>Advanced prompting, tool calling, RAG depth (chunking/embeddings/reranking),
+                                guardrails</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">04</div>
+                        <div class="module-text">
+                            <strong>Model Improvement Strategy</strong>
+                            <span>Prompt-only vs RAG vs fine-tuning decision framework, evaluation &amp; robustness
+                                testing</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">05</div>
+                        <div class="module-text">
+                            <strong>LLMOps / MLOps in Practice</strong>
+                            <span>CI/CD for AI, full versioning strategy, monitoring (drift/latency/cost/safety),
+                                rollback plans</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">06</div>
+                        <div class="module-text">
+                            <strong>AI Security &amp; Risk Controls</strong>
+                            <span>Prompt injection, data exfiltration risks, access control, audit trails &amp;
+                                compliance</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">07</div>
+                        <div class="module-text">
+                            <strong>Live Production Capstone Project</strong>
+                            <span>Working prototype + evaluation report + monitoring plan + security checklist +
+                                documentation</span>
+                        </div>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-num l3">08</div>
+                        <div class="module-text">
+                            <strong>AI Governance &amp; Compliance</strong>
+                            <span>Responsible AI frameworks, regulatory alignment, PDO-specific governance
+                                implementation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">
+                    Programme Outcomes</div>
+                <div class="outcomes-row">
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l3"></div>Deploy production-grade ML &amp; GenAI systems
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l3"></div>Design end-to-end data pipelines
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l3"></div>Build advanced RAG &amp; agent systems
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l3"></div>Implement MLOps/LLMOps practices
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l3"></div>Monitor &amp; govern AI in production
+                    </div>
+                    <div class="outcome-chip">
+                        <div class="outcome-chip-dot l3"></div>Deliver working AI prototypes for PDO
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 4: TECHNOLOGY STACK & LEARNING MODEL -->
+    <!-- ============================================================ -->
+    <div style="background: var(--off-white); padding: 80px 0;">
+        <div class="page" style="padding-top:0; padding-bottom:0;">
+
+            <div class="section-label">
+                <div class="section-label-num">04</div>
+                <div class="section-label-text">Technology &amp; Learning Model</div>
+            </div>
+            <h2 class="section-title">Open-Source First. Production Ready.<br>Zero Vendor Lock-In.</h2>
+            <p class="section-intro">The programme operates on a fully open-source AI stack — giving PDO complete
+                control over infrastructure, data, and intellectual assets. No recurring licensing fees. No proprietary
+                vendor dependency.</p>
+
+            <div class="tech-stack-wrap">
+                <div class="tech-stack-title">Core Technology Stack</div>
+                <div class="tech-stack-sub">Industry-standard tools used in real production environments worldwide</div>
+                <div class="tech-categories">
+                    <div class="tech-cat">
+                        <div class="tech-cat-label">LLM Frameworks</div>
+                        <div class="tech-tags">
+                            <div class="tech-tag">LangChain</div>
+                            <div class="tech-tag">LangGraph</div>
+                            <div class="tech-tag">Ollama</div>
+                            <div class="tech-tag">Open WebUI</div>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <div class="tech-cat-label">Vector &amp; Retrieval</div>
+                        <div class="tech-tags">
+                            <div class="tech-tag">ChromaDB</div>
+                            <div class="tech-tag">FAISS</div>
+                            <div class="tech-tag">HuggingFace</div>
+                            <div class="tech-tag">Embeddings</div>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <div class="tech-cat-label">ML &amp; Data</div>
+                        <div class="tech-tags">
+                            <div class="tech-tag">scikit-learn</div>
+                            <div class="tech-tag">Pandas</div>
+                            <div class="tech-tag">MLflow</div>
+                            <div class="tech-tag">DVC</div>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <div class="tech-cat-label">Deployment &amp; Ops</div>
+                        <div class="tech-tags">
+                            <div class="tech-tag">FastAPI</div>
+                            <div class="tech-tag">Docker</div>
+                            <div class="tech-tag">CI/CD</div>
+                            <div class="tech-tag">Monitoring</div>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <div class="tech-cat-label">Adam GPT Integration</div>
+                        <div class="tech-tags">
+                            <div class="tech-tag">RAG Pipelines</div>
+                            <div class="tech-tag">Custom Agents</div>
+                            <div class="tech-tag">Workflow APIs</div>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <div class="tech-cat-label">AI LMS Platform</div>
+                        <div class="tech-tags">
+                            <div class="tech-tag">Custom PDO Portal</div>
+                            <div class="tech-tag">Analytics</div>
+                            <div class="tech-tag">Progress Tracking</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Model -->
+            <div class="value-row">
+                <div class="value-card">
+                    <div class="value-card-icon-wrap">📚</div>
+                    <h4>Learn</h4>
+                    <p>Instructor-led sessions grounded in PDO-specific scenarios. All theory connected directly to
+                        operational workflows.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon-wrap">🔨</div>
+                    <h4>Build</h4>
+                    <p>Hands-on labs with real data, real tools, and real PDO use cases. Participants produce working
+                        outputs — not slides.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon-wrap">🎯</div>
+                    <h4>Evaluate</h4>
+                    <p>Every output is tested against defined PDO acceptance criteria. Participants learn to measure AI
+                        quality rigorously.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 5: COMPETITIVE COMPARISON -->
+    <!-- ============================================================ -->
+    <div class="page">
+
+        <div class="section-label">
+            <div class="section-label-num">05</div>
+            <div class="section-label-text">Why Traininglobe</div>
+        </div>
+        <h2 class="section-title">How We Compare</h2>
+        <p class="section-intro">An objective comparison of what Traininglobe delivers vs. standard AI training
+            providers vs. hiring external AI consultants.</p>
+
+        <table class="unique-table">
+            <thead>
+                <tr>
+                    <th>Feature / Capability</th>
+                    <th class="check-col">Traininglobe</th>
+                    <th class="check-col">Standard Training</th>
+                    <th class="check-col">External Consultants</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AI LMS Platform (Branded, Free)</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Live Projects with IT Company Partnership (Free)</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-partial">~</span></td>
+                </tr>
+                <tr>
+                    <td>Dual Certification (Industry + Programme)</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-partial">~</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                </tr>
+                <tr>
+                    <td>PDO-Specific Test Cases &amp; Project Resources</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-partial">~</span></td>
+                </tr>
+                <tr>
+                    <td>O&amp;G / PDO Contextualised Curriculum</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-partial">~</span></td>
+                </tr>
+                <tr>
+                    <td>Individual Participant Development Reports</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Adam GPT Ecosystem Integration</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                </tr>
+                <tr>
+                    <td>AI Community of Practice Setup</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                </tr>
+                <tr>
+                    <td>Production-First, Deployment-Ready Outputs</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Builds Permanent Internal PDO Capability</td>
+                    <td class="check-col"><span class="check-yes">✓</span></td>
+                    <td class="check-col"><span class="check-partial">~</span></td>
+                    <td class="check-col"><span class="check-no">✗</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="font-size:12px; color:var(--text-muted); margin-top:-32px; margin-bottom:48px;">
+            ✓ Fully Included &nbsp;|&nbsp; ~ Partially Available / Extra Cost &nbsp;|&nbsp; ✗ Not Provided
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 6: PRICING & INVESTMENT -->
+    <!-- ============================================================ -->
+    <div style="background: var(--off-white); padding: 80px 0;">
+        <div class="page" style="padding-top:0; padding-bottom:0;">
+
+            <div class="section-label">
+                <div class="section-label-num">06</div>
+                <div class="section-label-text">Investment Structure</div>
+            </div>
+            <h2 class="section-title">Transparent Pricing.<br>Exceptional Value.</h2>
+            <p class="section-intro">A milestone-based investment structure designed for accountability and flexibility.
+                Every element of the programme is included — no hidden costs, no surprise add-ons.</p>
+
+            <div class="pricing-wrap">
+                <div
+                    style="font-size:13px; font-weight:600; color:var(--text-muted); margin-bottom:4px; letter-spacing:0.5px;">
+                    Choose Your Engagement Level</div>
+                <div
+                    style="font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--primary);">
+                    Programme Investment Options</div>
+
+                <div class="pricing-grid">
+                    <!-- L2 Only -->
+                    <div class="pricing-card">
+                        <div class="pricing-card-level">Level 2 Only</div>
+                        <div class="pricing-card-name">AI Practitioners</div>
+                        <div class="pricing-card-price">
+                            <span class="price-currency">OMR</span><span class="price-amount">800</span>
+                        </div>
+                        <div class="price-per">per participant</div>
+                        <div class="price-duration">⏱ 1 Week</div>
+                        <div class="pricing-divider"></div>
+                        <div class="pricing-features">
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Full L2 curriculum (7
+                                modules)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Free AI LMS access (12
+                                months)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Live Project Day (IT
+                                partnership)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Dual certification
+                                (Industry + TGL)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>PDO test cases &amp;
+                                templates library</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Individual development
+                                report</div>
+                        </div>
+                    </div>
+
+
+                    <!-- L3 Only -->
+                    <div class="pricing-card">
+                        <div class="pricing-card-level">Level 3 Only</div>
+                        <div class="pricing-card-name">AI Specialists</div>
+                        <div class="pricing-card-price">
+                            <span class="price-currency">OMR</span><span class="price-amount">3,000</span>
+                        </div>
+                        <div class="price-per">per participant</div>
+                        <div class="price-duration">⏱ 5 Weeks</div>
+                        <div class="pricing-divider"></div>
+                        <div class="pricing-features">
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Full L3 curriculum (8
+                                modules)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Free AI LMS access (12
+                                months)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Production capstone
+                                project (free)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Dual certification
+                                (Industry + TGL)</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>PDO test cases &amp;
+                                evaluation library</div>
+                            <div class="pricing-feat"><span class="pricing-feat-icon">✓</span>Individual development
+                                report</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Investment -->
+                <div class="pricing-total-box">
+                    <div>
+                        <div class="pricing-total-label">Total Programme Investment (Full — 100 L2 + 60 L3)</div>
+                        <div style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px;">100 × OMR 800 + 60 ×
+                            OMR 3,000 = OMR 80,000 + OMR 180,000</div>
+                    </div>
+                    <div class="pricing-total-details">
+                        <div class="pricing-total-value">OMR <span>260,000</span></div>
+                        <div class="pricing-total-sub">Inclusive of LMS, live projects, dual certs &amp; all resources
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone Payment -->
+                <div
+                    style="margin-top:24px; background:white; border:1px solid var(--border); border-radius:14px; padding:24px 28px;">
+                    <div
+                        style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:16px; letter-spacing:0.3px;">
+                        📅 Milestone-Based Payment Schedule</div>
+                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+                        <div
+                            style="text-align:center; padding:16px; background:var(--off-white); border-radius:10px; border:1px solid var(--border);">
+                            <div
+                                style="font-size:22px; font-weight:800; color:var(--primary); font-family:'Playfair Display',serif; margin-bottom:4px;">
+                                30%</div>
+                            <div style="font-size:12px; font-weight:600; color:var(--text-muted);">Programme
+                                Commencement</div>
+                        </div>
+                        <div
+                            style="text-align:center; padding:16px; background:var(--off-white); border-radius:10px; border:1px solid var(--border);">
+                            <div
+                                style="font-size:22px; font-weight:800; color:var(--primary); font-family:'Playfair Display',serif; margin-bottom:4px;">
+                                40%</div>
+                            <div style="font-size:12px; font-weight:600; color:var(--text-muted);">Level 2 Completion
+                            </div>
+                        </div>
+                        <div
+                            style="text-align:center; padding:16px; background:var(--off-white); border-radius:10px; border:1px solid var(--border);">
+                            <div
+                                style="font-size:22px; font-weight:800; color:var(--primary); font-family:'Playfair Display',serif; margin-bottom:4px;">
+                                30%</div>
+                            <div style="font-size:12px; font-weight:600; color:var(--text-muted);">Full Delivery &amp;
+                                Reporting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 7: CERTIFICATION FRAMEWORK -->
+    <!-- ============================================================ -->
+    <div class="page">
+
+        <div class="section-label">
+            <div class="section-label-num">07</div>
+            <div class="section-label-text">Certification</div>
+        </div>
+        <h2 class="section-title">Two Credentials. Global Recognition<br>+ PDO-Validated Competency.</h2>
+        <p class="section-intro">Every participant earns a dual certification package — combining international
+            credibility with operational relevance unique to PDO's context.</p>
+
+        <div class="cert-grid">
+            <div class="cert-card primary-cert">
+                <div class="cert-header">
+                    <div class="cert-icon">🏆</div>
+                    <div>
+                        <h4>Industry Certification</h4>
+                        <span>Primary Value · Globally Recognised</span>
+                    </div>
+                </div>
+                <div class="cert-body">
+                    <p>Internationally recognised credentials from world-leading technology platforms. These
+                        certifications benchmark PDO talent against global standards, enhance individual credibility,
+                        and strengthen PDO's employer brand internationally.</p>
+                    <div
+                        style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px;">
+                        Partner Providers</div>
+                    <div class="cert-providers">
+                        <div class="cert-provider-tag">Microsoft Azure AI</div>
+                        <div class="cert-provider-tag">Google Cloud AI</div>
+                        <div class="cert-provider-tag">AWS AI/ML</div>
+                        <div class="cert-provider-tag">NVIDIA Deep Learning</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <div class="cert-header">
+                    <div class="cert-icon">🎓</div>
+                    <div>
+                        <h4>Traininglobe Programme Certificate</h4>
+                        <span>PDO-Specific · Competency Validated</span>
+                    </div>
+                </div>
+                <div class="cert-body">
+                    <p>A custom certification that validates each participant's demonstrated AI competency within PDO's
+                        specific operational context. Aligned to the PDO AI Competency Framework and assessed via live
+                        capstone performance — not just theoretical examination.</p>
+                    <div
+                        style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px;">
+                        What It Validates</div>
+                    <div class="cert-providers">
+                        <div class="cert-provider-tag">Practical AI Application</div>
+                        <div class="cert-provider-tag">Capstone Project Performance</div>
+                        <div class="cert-provider-tag">PDO Context Competency</div>
+                        <div class="cert-provider-tag">Tool Proficiency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 8: DELIVERY TIMELINE -->
+    <!-- ============================================================ -->
+    <div style="background: var(--off-white); padding: 80px 0;">
+        <div class="page" style="padding-top:0; padding-bottom:0;">
+
+            <div class="section-label">
+                <div class="section-label-num">08</div>
+                <div class="section-label-text">Delivery Roadmap</div>
+            </div>
+            <h2 class="section-title">Phased Delivery for<br>Maximum Operational Continuity</h2>
+            <p class="section-intro">A carefully sequenced delivery model ensuring progressive skill building, minimal
+                operational disruption, and clear governance at every stage.</p>
+
+            <div class="timeline-wrap">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <h4>Pre-Programme Preparation</h4>
+                            <div class="timeline-date-badge">April 2026</div>
+                        </div>
+                        <p>Needs analysis with PDO stakeholders, live project identification, AI LMS setup and branding,
+                            participant onboarding, PDO mentor assignment, and lab environment technical readiness
+                            verification.</p>
+                        <div class="timeline-sub-items">
+                            <div class="timeline-chip">Stakeholder alignment</div>
+                            <div class="timeline-chip">LMS deployment</div>
+                            <div class="timeline-chip">Project scoping</div>
+                            <div class="timeline-chip">IT setup</div>
+                            <div class="timeline-chip">Participant onboarding</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <h4>Level 2 — AI Practitioners (5 Batches × 20 participants)</h4>
+                            <div class="timeline-date-badge">May – June 2026</div>
+                        </div>
+                        <p>Delivery of the full Level 2 programme across 5 batches, each running 1 intensive week.
+                            Includes hands-on labs, Live Project Day, and individual evaluations. Mid-programme review
+                            after batch 3.</p>
+                        <div class="timeline-sub-items">
+                            <div class="timeline-chip">5 batches</div>
+                            <div class="timeline-chip">20 per batch</div>
+                            <div class="timeline-chip">Live project days</div>
+                            <div class="timeline-chip">Interim reporting</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <h4>Level 2 Certification &amp; Cohort Analysis</h4>
+                            <div class="timeline-date-badge">July 2026</div>
+                        </div>
+                        <p>Certification ceremonies, individual participant reports delivered to HR, cohort-level
+                            analysis report for leadership, and identification of high-potential AI talent for Level 3
+                            progression.</p>
+                        <div class="timeline-sub-items">
+                            <div class="timeline-chip">100 certificates issued</div>
+                            <div class="timeline-chip">Individual reports</div>
+                            <div class="timeline-chip">L3 nominations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <h4>Level 3 — AI Specialists (3 Batches × 20 participants)</h4>
+                            <div class="timeline-date-badge">August – October 2026</div>
+                        </div>
+                        <p>Delivery of the Level 3 programme across 3 batches, each running 5 weeks. Deep-dive technical
+                            curriculum with production capstone projects, real PDO AI systems development, and
+                            specialist mentorship.</p>
+                        <div class="timeline-sub-items">
+                            <div class="timeline-chip">3 batches</div>
+                            <div class="timeline-chip">20 per batch</div>
+                            <div class="timeline-chip">5-week intensive</div>
+                            <div class="timeline-chip">Production capstones</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <h4>Programme Completion &amp; AI Community of Practice Launch</h4>
+                            <div class="timeline-date-badge">November 2026</div>
+                        </div>
+                        <p>Final certification ceremonies, full programme impact report, launch of PDO's AI Community of
+                            Practice, handover of test cases library, and knowledge transfer to PDO's internal AI
+                            governance team.</p>
+                        <div class="timeline-sub-items">
+                            <div class="timeline-chip">60 L3 certificates</div>
+                            <div class="timeline-chip">CoP launch</div>
+                            <div class="timeline-chip">Resource handover</div>
+                            <div class="timeline-chip">Impact report</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 9: WHAT'S INCLUDED -->
+    <!-- ============================================================ -->
+    <div class="page">
+
+        <div class="section-label">
+            <div class="section-label-num">09</div>
+            <div class="section-label-text">Complete Inclusions</div>
+        </div>
+        <h2 class="section-title">Everything Included.<br>Nothing Left to Chance.</h2>
+        <p class="section-intro">The programme investment covers the complete end-to-end delivery — no separate costs
+            for platforms, certifications, projects, or reporting.</p>
+
+        <div class="inclusions-grid">
+            <div class="inclusion-item">
+                <div class="inclusion-icon">🖥️</div>
+                <div class="inclusion-text">
+                    <strong>AI LMS Platform (Free)</strong>
+                    <span>Branded PDO learning portal with adaptive pathways, analytics, and 12-month post-programme
+                        access — OMR 0 additional cost</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">⚡</div>
+                <div class="inclusion-text">
+                    <strong>Live Projects — IT Company Tie-Up (Free)</strong>
+                    <span>Real PDO AI initiatives supported by our industry IT partner — participants build and deploy,
+                        not just simulate</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">🏅</div>
+                <div class="inclusion-text">
+                    <strong>Dual Certification per Participant</strong>
+                    <span>Industry-standard global certificate (Microsoft/Google/AWS/NVIDIA) + Traininglobe programme
+                        certificate</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">🧪</div>
+                <div class="inclusion-text">
+                    <strong>PDO Test Cases &amp; Resources Library</strong>
+                    <span>Bespoke O&G-contextualised test cases, evaluation datasets, prompt templates, and project
+                        blueprints — yours permanently</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">📊</div>
+                <div class="inclusion-text">
+                    <strong>Individual Participant Development Reports</strong>
+                    <span>Personalised competency assessment, 90-day action plan, strengths analysis, and career pathway
+                        recommendations per participant</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">👥</div>
+                <div class="inclusion-text">
+                    <strong>Cohort Analysis for Leadership</strong>
+                    <span>Aggregated AI talent assessment report for PDO's HR and leadership to guide role transitions
+                        and workforce planning</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">🔧</div>
+                <div class="inclusion-text">
+                    <strong>Lab Infrastructure &amp; Tools Setup</strong>
+                    <span>Full technical environment configuration, open-source stack setup, and infrastructure
+                        readiness — included in programme fees</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">🌐</div>
+                <div class="inclusion-text">
+                    <strong>AI Community of Practice Setup</strong>
+                    <span>Post-programme internal knowledge-sharing network for PDO's AI practitioners and specialists
+                        to sustain momentum</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">📋</div>
+                <div class="inclusion-text">
+                    <strong>Programme Management &amp; Governance</strong>
+                    <span>Dedicated programme manager, milestone reporting, stakeholder engagement, mid-programme
+                        reviews, and QA processes</span>
+                </div>
+            </div>
+            <div class="inclusion-item">
+                <div class="inclusion-icon">🤝</div>
+                <div class="inclusion-text">
+                    <strong>Post-Training Support (30 Days)</strong>
+                    <span>Access to Traininglobe's expert team for troubleshooting, deployment guidance, and
+                        implementation support after each level completes</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 10: STRATEGIC ALIGNMENT -->
+    <!-- ============================================================ -->
+    <div style="background: var(--off-white); padding: 80px 0;">
+        <div class="page" style="padding-top:0; padding-bottom:0;">
+
+            <div class="section-label">
+                <div class="section-label-num">10</div>
+                <div class="section-label-text">Strategic Alignment</div>
+            </div>
+            <h2 class="section-title">Aligned with Oman's Highest<br>National Priorities</h2>
+            <p class="section-intro">This programme is not delivered in isolation — it is a direct contribution to
+                Oman's national transformation agenda, operating at the intersection of three defining strategic
+                frameworks.</p>
+
+            <div class="alignment-grid">
+                <div class="alignment-card">
+                    <div class="alignment-card-header">
+                        <div class="alignment-icon">🇴🇲</div>
+                        <h4>Oman Vision 2040</h4>
+                    </div>
+                    <div class="alignment-points">
+                        <div class="alignment-point">Develops future-ready AI workforce capabilities</div>
+                        <div class="alignment-point">Supports technology-driven economic diversification</div>
+                        <div class="alignment-point">Enhances productivity in the energy sector</div>
+                        <div class="alignment-point">Strengthens Oman's innovation &amp; R&D ecosystems</div>
+                        <div class="alignment-point">Builds a knowledge-based, competitive national economy</div>
+                    </div>
+                </div>
+
+                <div class="alignment-card">
+                    <div class="alignment-card-header">
+                        <div class="alignment-icon">📋</div>
+                        <h4>11th Five-Year Development Plan (2026–2030)</h4>
+                    </div>
+                    <div class="alignment-points">
+                        <div class="alignment-point">Adopts AI across key economic sectors (Objective 1)</div>
+                        <div class="alignment-point">Develops future workforce skills (Objective 4)</div>
+                        <div class="alignment-point">Promotes innovation and applied research (Objective 5)</div>
+                        <div class="alignment-point">Accelerates digital transformation in government entities</div>
+                        <div class="alignment-point">Supports Digital Economy as a Key Priority Sector</div>
+                    </div>
+                </div>
+
+                <div class="alignment-card">
+                    <div class="alignment-card-header">
+                        <div class="alignment-icon">⚙️</div>
+                        <h4>PDO Internal AI Strategy</h4>
+                    </div>
+                    <div class="alignment-points">
+                        <div class="alignment-point">Scales Adam GPT into a fully integrated enterprise AI system</div>
+                        <div class="alignment-point">Builds AI-enabled workflows across all departments</div>
+                        <div class="alignment-point">Establishes a core internal AI engineering function</div>
+                        <div class="alignment-point">Reduces dependency on external AI consultants</div>
+                        <div class="alignment-point">Positions PDO as national AI leadership model</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div class="callout-text">
+                    <h4>PDO as a Flagship National AI Leader</h4>
+                    <p>As one of Oman's most strategically significant organisations, PDO's investment in AI capability
+                        development creates a ripple effect across the national economy. By building deep, internal AI
+                        expertise, PDO demonstrates that <strong>AI transformation is achievable, measurable, and
+                            replicable</strong> — setting the benchmark for the wider Omani energy and industrial
+                        sector.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER / CLOSING -->
+    <!-- ============================================================ -->
+    <div class="proposal-footer">
+        <div class="footer-inner">
+            <div class="footer-cta">
+                <h2>Ready to Build Oman's AI Workforce?</h2>
+                <p>This proposal represents our commitment to PDO's transformation. We are ready to begin programme
+                    customisation, needs analysis, and LMS setup immediately upon engagement confirmation.</p>
+                <a href="mailto:amardeep.bajpai@traininglobe.com" class="footer-btn">
+                    📩 Begin Discussion
+                </a>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Traininglobe</h3>
+                <div class="footer-contact-items">
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">✉️</div>
+                        <div class="footer-contact-text">
+                            <strong>Email</strong>
+                            amardeep.bajpai@traininglobe.com
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">📞</div>
+                        <div class="footer-contact-text">
+                            <strong>Phone</strong>
+                            +91 99101 21485
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">🌐</div>
+                        <div class="footer-contact-text">
+                            <strong>Website</strong>
+                            www.traininglobe.com
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">🤝</div>
+                        <div class="footer-contact-text">
+                            <strong>Partnership</strong>
+                            Smart Investment Gateway (SIG) Oman
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-text">© 2026 Traininglobe. Prepared exclusively for Petroleum Development Oman
+                (PDO) · Strictly Confidential</div>
+            <div class="footer-bottom-badge">March 2026</div>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const error = document.getElementById('password-error');
+            const overlay = document.getElementById('password-overlay');
+            const content = document.getElementById('main-content');
+
+            if (input === 'TraininglobeSIG@123') {
+                overlay.style.display = 'none';
+                content.style.display = 'block';
+                document.body.style.overflow = 'auto';
+            } else {
+                error.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+
+        document.getElementById('password-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Prevent scrolling until unlocked
+        document.body.style.overflow = 'hidden';
+    </script>
+</body>
+
+</html>
